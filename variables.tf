@@ -21,8 +21,9 @@ variable "key_name" {
   description = "The SSH public key name (in EC2 key-pairs) to be injected into instances"
 }
 
-variable "security_group" {
-  description = "ID of SG the launched instance will use"
+variable "security_groups" {
+  description = "List IDs of SGs the launched instance will use"
+  default     = []
 }
 
 variable "user_data" {
@@ -86,6 +87,7 @@ variable "availability_zones" {
 variable "vpc_zone_subnets" {
   description = "A comma seperated list string of VPC subnets to associate with ASG, should correspond with var.availability_zones zones"
 }
+<<<<<<< HEAD
 
 /*
  * A list of tag blocks (maps)
@@ -94,3 +96,5 @@ variable "asg_tags" {
   description = "(Optional) A list of tag blocks (maps)"
   default     = []
 }
+=======
+>>>>>>> feature/asg-sgs
