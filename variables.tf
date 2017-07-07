@@ -87,7 +87,6 @@ variable "availability_zones" {
 variable "vpc_zone_subnets" {
   description = "A comma seperated list string of VPC subnets to associate with ASG, should correspond with var.availability_zones zones"
 }
-<<<<<<< HEAD
 
 /*
  * A list of tag blocks (maps)
@@ -96,5 +95,3 @@ variable "asg_tags" {
   description = "(Optional) A list of tag blocks (maps)"
   default     = []
 }
-=======
->>>>>>> feature/asg-sgs
