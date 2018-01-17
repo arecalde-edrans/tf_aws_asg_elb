@@ -9,7 +9,7 @@
  */
 
 resource "aws_launch_configuration" "launch_config" {
-  name                 = "${var.lc_name}"
+  name_prefix          = "${var.lc_name}-"
   image_id             = "${var.ami_id}"
   instance_type        = "${var.instance_type}"
   iam_instance_profile = "${var.iam_instance_profile}"
