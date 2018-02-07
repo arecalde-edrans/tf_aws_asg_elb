@@ -1,5 +1,5 @@
 /*
- * Module: tf_aws_asg_elb
+ * Module: tf_aws_asg_no_elb
  */
 
 #
@@ -58,18 +58,13 @@ variable "health_check_grace_period" {
 
 /*
  * Types available are:
- *   - ELB
  *   - EC2
  *
  *   @see-also: http://docs.aws.amazon.com/cli/latest/reference/autoscaling/create-auto-scaling-group.html#options
  */
 variable "health_check_type" {
   description = "The health check used by the ASG to determine health"
-  default     = "ELB"
-}
-
-variable "load_balancer_names" {
-  description = "A comma seperated list string of ELB names the ASG should associate instances with"
+  default     = "EC2"
 }
 
 /*

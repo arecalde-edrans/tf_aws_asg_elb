@@ -1,13 +1,12 @@
 tf_aws_asg_elb
 ==============
 A Terraform module for creating an Auto-Scaling Group and a launch
-configuration for it, for use with an Elastic Load Balancer.
+configuration for it, for use without an Elastic Load Balancer.
 This module makes the following assumptions:
 * You have subnets in a VPC and that you want your instances
    in two subnets (in two AZs)
 * You can fully bootstrap your instances using an AMI + user_data
-* *You want to associate the ASG with an ELB*
-* Your instances behind the ELB will be in a VPC
+* *You DON'T want to associate the ASG with an ELB*
 * Your using a single Security Group for all instances in the ASG
 
 Input Variables
@@ -43,10 +42,6 @@ Input Variables
    time out. Defaults to 300.
 - `health_check_type` - The health check type. Options are `ELB` and
    `EC2`. It defaults to `ELB` in this module.
-- `load_balancer_names` - The name(s) of the ELB(s) to associate with the ASG,
-   for settings it's backend instances. Ideally this is a reference to
-   an ELB you're making in the same template as this ASG. Can be a CSV of ELB names
-   if more than one is desired.
 - `availability_zones` - CSV of availability zones (AZs) for the ASG. *ex. "us-east-1a,us-east-1c"*
 - `vpc_zone_subnets` - CSV of VPC subnets to associate with ASG. There should be one subnet
    for each of the `availability_zones.` *ex. "subnet-d2gd22,subnet-2kjn8qq"*
@@ -84,9 +79,6 @@ module "my_autoscaling_group" {
   asg_number_of_instances = "${var.asg_number_of_instances}"
   asg_minimum_number_of_instances = "${var.asg_minimum_number_of_instances}"
 
-  //Using a reference to an SG we create in the same template
-  load_balancer_names = "${module.my_elb.elb_name}"
-
   // The health_check_type can be EC2 or ELB and defaults to ELB
   health_check_type = "${var.health_check_type}"
 
@@ -113,7 +105,6 @@ module "my_autoscaling_group" {
 - user_data
 - asg_name
 - asg_number_of_instances.
-- load_balancer_names
 - availability_zones
 - vpc_zone_subnets
 
