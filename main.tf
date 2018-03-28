@@ -9,6 +9,7 @@
  */
 
 resource "aws_launch_configuration" "launch_config" {
+  count                = "${var.create}"
   name_prefix          = "${var.lc_name}-"
   image_id             = "${var.ami_id}"
   instance_type        = "${var.instance_type}"
@@ -23,6 +24,7 @@ resource "aws_launch_configuration" "launch_config" {
 }
 
 resource "aws_autoscaling_group" "main_asg" {
+  count                = "${var.create}"
   # We want this to explicitly depend on the launch config above
   depends_on = ["aws_launch_configuration.launch_config"]
 
