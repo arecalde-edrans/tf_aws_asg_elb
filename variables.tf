@@ -76,8 +76,8 @@ variable "health_check_type" {
   default     = "ELB"
 }
 
-variable "load_balancer_names" {
-  description = "A comma seperated list string of ELB names the ASG should associate instances with"
+variable "load_balancer_name" {
+  description = "Name of the load balancer to attach to the ASG if required"
 }
 
 /*
