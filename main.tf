@@ -28,18 +28,18 @@ resource "aws_autoscaling_group" "main_asg" {
   # We want this to explicitly depend on the launch config above
   depends_on = ["aws_launch_configuration.launch_config"]
 
-  name = "${var.asg_name}"
+  name                 = "${var.asg_name}"
 
   # The chosen availability zones *must* match the AZs the VPC subnets are tied to.
-  availability_zones  = ["${split(",", var.availability_zones)}"]
-  vpc_zone_identifier = ["${split(",", var.vpc_zone_subnets)}"]
+  availability_zones   = ["${split(",", var.availability_zones)}"]
+  vpc_zone_identifier  = ["${split(",", var.vpc_zone_subnets)}"]
 
   # Uses the ID from the launch config created above
   launch_configuration = "${aws_launch_configuration.launch_config.id}"
 
-  max_size         = "${var.asg_number_of_instances}"
-  min_size         = "${var.asg_minimum_number_of_instances}"
-  desired_capacity = "${var.asg_number_of_instances}"
+  max_size             = "${var.asg_number_of_instances}"
+  min_size             = "${var.asg_minimum_number_of_instances}"
+  desired_capacity     = "${var.asg_number_of_instances}"
 
   health_check_grace_period = "${var.health_check_grace_period}"
   health_check_type         = "${var.health_check_type}"
@@ -48,7 +48,8 @@ resource "aws_autoscaling_group" "main_asg" {
 }
 
 resource "aws_autoscaling_attachment" "elb_for_main_asg" {
-  count                  = "${var.has_elb}"
+  count                  = "${0 + var.has_elb}"
+  depends_on             = ["aws_autoscaling_group.main_asg"]
   autoscaling_group_name = "${aws_autoscaling_group.main_asg.name}"
   elb                    = "${var.load_balancer_name}"
 }
