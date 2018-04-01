@@ -78,6 +78,7 @@ variable "health_check_type" {
 
 variable "load_balancer_name" {
   description = "Name of the load balancer to attach to the ASG if required"
+  default     = "NOELB"
 }
 
 /*
