@@ -60,6 +60,10 @@ variable "health_check_grace_period" {
   default     = 300
 }
 
+variable "has_elb" {
+  description = "Set to true if you want to attach an existing ELB to the ASG"
+}
+
 /*
  * Types available are:
  *   - ELB
