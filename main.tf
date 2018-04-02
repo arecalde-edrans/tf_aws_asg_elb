@@ -8,6 +8,7 @@
  * It requires you create an ELB instance before you use it.
  */
 
+
 resource "aws_launch_configuration" "launch_config" {
   count                = "${var.create}"
   name_prefix          = "${var.lc_name}-"
@@ -48,8 +49,7 @@ resource "aws_autoscaling_group" "main_asg" {
 }
 
 resource "aws_autoscaling_attachment" "elb_for_main_asg" {
-  count                  = "${0 + var.has_elb}"
-  depends_on             = ["aws_autoscaling_group.main_asg"]
-  autoscaling_group_name = "${aws_autoscaling_group.main_asg.name}"
+  count                  = "${var.has_elb}"
+  autoscaling_group_name = "${var.asg_name}"
   elb                    = "${var.load_balancer_name}"
 }
