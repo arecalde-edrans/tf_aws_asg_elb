@@ -5,9 +5,6 @@
 #
 # Launch Configuration Variables
 #
-variable "create" {
-  description = "Set to true if you want to create this resource(Used for optional use cases)"
-}
 
 variable "lc_name" {}
 
