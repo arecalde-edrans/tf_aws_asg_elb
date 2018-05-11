@@ -47,6 +47,7 @@ resource "aws_autoscaling_group" "main_asg" {
 }
 
 resource "aws_autoscaling_attachment" "elb_for_main_asg" {
+  depends_on             = [ "aws_autoscaling_group.main_asg" ]
   count                  = "${var.has_elb}"
   autoscaling_group_name = "${var.asg_name}"
   elb                    = "${var.load_balancer_name}"
